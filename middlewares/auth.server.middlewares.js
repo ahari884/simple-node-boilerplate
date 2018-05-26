@@ -17,15 +17,17 @@ exports.updateSession = function (selectQuery, updateQuery) {
     });
 }
 
-exports.validateToken = function (req, res, next) {
-    var token = req.headers.accessToken;
+exports.isAuthenticated = function (req, res, next) {
+    var token = req.headers.access_token;
     jwt.verify(token, config.sessionSecret, function (err, response) {
         if (err) {
+            console.log('err :',err);
             res.status(422).send({
                 success: false,
                 message: 'unauthenticated'
             });
         } else {
+            req.username = response.data.username;
             return next();
         }
     })

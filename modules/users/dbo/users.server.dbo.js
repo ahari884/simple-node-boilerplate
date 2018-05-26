@@ -8,7 +8,7 @@ exports.findUserByUsername = function (username, callback) {
     }, function (err, result) {
       var userData = result;
       if (err) {
-        callback('Error');
+        callback('Something went wrong');
       } else if (!result) {
         callback('User credentials are not found');
       } else {

@@ -3,15 +3,22 @@ var authMiddleware = require('../../../middlewares/auth.server.middlewares');
 var usersDbo = require('../dbo/users.server.dbo');
 var sessionsDbo = require('../dbo/session.server.dbo');
 var async = require('async');
-var _ = require('lodash');
 var crypto = require('crypto');
-var validator = require('validator');
-
-var whitelistedFields = ['firstName', 'lastName', 'email', 'username'];
 
 exports.signup = function (req, res) {
     var data = req.body;
-    data.displayName = data.firstName + ' ' + data.lastName;
+    let firstName = data.firstName ? data.firstName : '';
+    let lastName = data.lastName ? data.lastName : '';
+    if (firstName) {
+        data.displayName = firstName;
+    }
+    if (lastName) {
+        if (firstName) {
+            data.displayName += ' ';
+        }
+        data.displayName += lastName
+    }
+    
     var user = new User(data);
     user.save(function (err, result) {
         if (err) {
