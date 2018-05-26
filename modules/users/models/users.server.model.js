@@ -82,7 +82,7 @@ var UserSchema = new Schema({
     },
     password: {
         type: String,
-        default: ''
+        required: true
     },
     salt: {
         type: String
@@ -122,7 +122,7 @@ UserSchema.pre('save', function (next) {
  * Hook a pre validate method to test the local password
  */
 UserSchema.pre('validate', function (next) {
-    if (this.provider === 'local' && this.password && this.isModified('password')) {
+    if (this.password && this.isModified('password')) {
         var result = owasp.test(this.password);
         if (result.errors.length) {
             var error = result.errors.join(' ');
