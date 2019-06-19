@@ -1,6 +1,6 @@
-var config = require('./config/config');
-var mongoose = require('./config/mongoose');
-var express = require('./config/express');
+var config = require('./app/config/config');
+var mongoose = require('./app/config/mongoose');
+var express = require('./app/config/express');
 
 var db = mongoose();
 var app = express();
