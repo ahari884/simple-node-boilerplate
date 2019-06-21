@@ -11,13 +11,8 @@ module.exports = function () {
         console.log('Database connection timeout error');
     });
 
-    glob(path.dirname(require.main.filename) + '/modules/**/models/*.js', function(err, files){
-        if(files && files.length){
-            files.forEach(function(file){
-                require(file);
-            });
-        }
-    });
+    require('../modules/users/models/users.server.model');
+    require('../modules/users/models/session.server.model');
 
     return db;
 }

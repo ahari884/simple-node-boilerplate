@@ -33,7 +33,7 @@ module.exports = function(){
     app.use(methodOverride());
 
     // Adding all routes from modules by passing app to the routes with the help of glob
-    glob(path.dirname(require.main.filename) + '/modules/**/routes/*.js', function (err, files) {
+    glob(path.dirname(require.main.filename) + '/app/modules/**/routes/*.js', function (err, files) {
         if (files && files.length) {
             files.forEach(function (file) {
                 require(file)(app);
